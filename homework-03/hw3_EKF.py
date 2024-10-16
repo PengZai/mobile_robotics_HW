@@ -92,6 +92,9 @@ if __name__ == "__main__":
         return mu, Sigma
 
 
+   
+
+
     mu, Sigma = EFK(mu, Sigma, z_1_set, Sigma_v1, h1, get_Jacobian_H1)
     print('EKF with z1, mu=(%f, %f, %f) ' % (mu[0][0], mu[1][0], mu[2][0]))
     mu, Sigma = EFK(mu, Sigma, z_2_set, Sigma_v2, h2, get_Jacobian_H2)

@@ -25,6 +25,8 @@ theta = sigma_sensor[1] * np.random.randn(N) + mu_sensor[1]
 x = r*np.cos(theta)
 y = r*np.sin(theta)
 
+sigma = np.cov([x,y])
+
 
 #############################################################################
 #                            END OF YOUR CODE                               #

@@ -1,8 +1,8 @@
 import numpy as np
 import pandas as pd
 import copy
-
-
+import scipy
+import random
 
 if __name__ == "__main__":
 
@@ -10,12 +10,14 @@ if __name__ == "__main__":
     mu = np.expand_dims(np.random.rand(3), axis= 1)
     copy_mu = copy.deepcopy(mu)
     Sigma = np.array([
-        [1000, 0, 0],
-        [0, 1000, 0],
-        [0, 0, 1000]
+        [100, 0, 0],
+        [0, 100, 0],
+        [0, 0, 100]
     ])
     copy_Sigma = copy.deepcopy(Sigma)
-
+    
+    M = 10000
+    samples = np.random.multivariate_normal(mu[:,0], Sigma, size = M)
     Sigma_w = np.array([
         [0.01, 0, 0],
         [0, 0.01, 0],
@@ -91,14 +93,41 @@ if __name__ == "__main__":
 
         return mu, Sigma
 
+    def Particle_filter(samples, z_set, Sigma_z, h):
+        
+        M = len(samples)
+        W = []
+        temp_P = []
+        P = []
+        for z in z_set:
+            W.clear()
+            temp_P.clear()
+            P.clear()
+            
+            for p in samples:
+                p = np.random.multivariate_normal(p, Sigma_w, 1).T
+                w = scipy.stats.multivariate_normal(mean = h(p)[:, 0], cov = Sigma_z).pdf(z)
+                temp_P.append(p[:, 0])
+                W.append(w)
+                
+            
+            resamples = random.choices(population = temp_P, weights=W, k=M)
+            samples = np.array(resamples)
+                
+        return samples
+    
 
     mu, Sigma = EFK(mu, Sigma, z_1_set, Sigma_v1, h1, get_Jacobian_H1)
     print('EKF with z1, mu=(%f, %f, %f) ' % (mu[0][0], mu[1][0], mu[2][0]))
-    mu, Sigma = EFK(mu, Sigma, z_2_set, Sigma_v2, h2, get_Jacobian_H2)
-    print('EKF with z2, mu=(%f, %f, %f) ' % (mu[0][0], mu[1][0], mu[2][0]))
+    # mu, Sigma = EFK(mu, Sigma, z_2_set, Sigma_v2, h2, get_Jacobian_H2)
+    # print('EKF with z2, mu=(%f, %f, %f) ' % (mu[0][0], mu[1][0], mu[2][0]))
 
-    copy_mu, copy_Sigma = EFK(copy_mu, copy_Sigma, z_set, Sigma_v12, h12, get_Jacobian_H12)
-    print('EKF with z12, mu=(%f, %f, %f) ' % (copy_mu[0][0], copy_mu[1][0], copy_mu[2][0]))
+    # copy_mu, copy_Sigma = EFK(copy_mu, copy_Sigma, z_set, Sigma_v12, h12, get_Jacobian_H12)
+    # print('EKF with z12, mu=(%f, %f, %f) ' % (copy_mu[0][0], copy_mu[1][0], copy_mu[2][0]))
+
+    samples = Particle_filter(samples, z_1_set, Sigma_v1, h1)
+    mu = np.mean(samples, axis = 0)
+    print('Particle_filter with z1, mu=(%f, %f, %f) ' % (mu[0], mu[1], mu[2]))
 
 
     print('end')

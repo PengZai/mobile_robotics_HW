@@ -5,6 +5,7 @@ import scipy
 import random
 import cv2
 from numpy.random import randn, rand
+import matplotlib.pyplot as plt
 
 
 if __name__ == "__main__":
@@ -106,6 +107,9 @@ if __name__ == "__main__":
         return np.vstack((get_Jacobian_H1(p), get_Jacobian_H2(p)))
 
     def EFK(mu, Sigma, z_set, Sigma_z, h, Jacobian_H):
+        
+        trajectories = []
+        
         for z in z_set:
             z = np.expand_dims(z, axis=1)
             Sigma = Sigma + Sigma_w
@@ -113,10 +117,14 @@ if __name__ == "__main__":
             K = Sigma @ H.T @ np.linalg.inv(H @ Sigma @ H.T + Sigma_z)
             
             mu = mu + K @ (z - h(mu))
-           
             Sigma = (np.eye(3) -  K @ H) @ Sigma
+            
+            trajectories.append(mu[:, 0])
 
-        return mu, Sigma
+        
+        trajectories = np.array(trajectories)
+        
+        return mu, Sigma, trajectories
 
     def Particle_filter(samples, z_set, Sigma_z, h):
 
@@ -140,7 +148,7 @@ if __name__ == "__main__":
             
         M = len(samples)
         W = np.ones(M)/M
-        
+        trajectories = []
         temp_P = []
         P = []
         for z in z_set:
@@ -157,33 +165,64 @@ if __name__ == "__main__":
             if Neff < M / 5:
                 P, W = resampling(P, W)
 
-                
+            trajectory = np.array(P)[:, :, 0]
+            trajectories.append([np.sum(trajectory[:, 0]*W), np.sum(trajectory[:, 1]*W), np.sum(trajectory[:, 2]*W)])
+            samples = np.array(P)[:, :,0]
             
-            resamples = random.choices(population = P, weights=W, k=M)
-            samples = np.array(resamples)[:, :,0]
-                
-        return samples
+        
+        trajectories = np.array(trajectories)
+        
+        return samples, trajectories
+    
+    
+    def visualization(p, save_name):
+        
+        
+        N = len(p) 
+        x = p[:, 0]
+        y = p[:, 1]
+        z = p[:, 2]
+        t = np.arange(N)
+        
+        fig = plt.figure()
+        
+        line1, = plt.plot(t, x, color='blue')
+        line2, = plt.plot(t, y, color='red')
+        line3, = plt.plot(t, z, color='green')
+        plt.legend([line1, line2, line3], [r'x', r'y', r'z'], loc='best')
+        plt.grid(True)
+        plt.axis('equal')
+        plt.title(save_name)
+        plt.xlim([0, N])
+        plt.ylim([-3, 3])
+        plt.xlabel(r'$t$')
+        plt.ylabel(r'$altitude$')
+        plt.savefig(save_name)
+        plt.show()
     
 
    
 
-    mu, Sigma = EFK(mu, Sigma, z_1_set, Sigma_v1, h1, get_Jacobian_H1)
+    mu, Sigma, trajectories = EFK(mu, Sigma, z_1_set, Sigma_v1, h1, get_Jacobian_H1)
     print('EKF with z1, mu=(%f, %f, %f) ' % (mu[0][0], mu[1][0], mu[2][0]))
-    mu, Sigma = EFK(mu, Sigma, z_2_set, Sigma_v2, h2, get_Jacobian_H2)
+    mu, Sigma, trajectories = EFK(mu, Sigma, z_2_set, Sigma_v2, h2, get_Jacobian_H2)
     print('EKF with z2, mu=(%f, %f, %f) ' % (mu[0][0], mu[1][0], mu[2][0]))
-
-    copy_mu, copy_Sigma = EFK(copy_mu, copy_Sigma, z_set, Sigma_v12, h12, get_Jacobian_H12)
+    visualization(np.vstack((trajectories, trajectories)), "EKF with z1 followed by z2")
+    
+    copy_mu, copy_Sigma, trajectories = EFK(copy_mu, copy_Sigma, z_set, Sigma_v12, h12, get_Jacobian_H12)
     print('EKF with z12, mu=(%f, %f, %f) ' % (copy_mu[0][0], copy_mu[1][0], copy_mu[2][0]))
+    visualization(trajectories, "EKF with z1 stacking with z2")
 
-    samples = Particle_filter(samples, z_1_set, Sigma_v1, h1)
-    mu = np.mean(samples, axis = 0)
-    print('Particle_filter with z1, mu=(%f, %f, %f) ' % (mu[0], mu[1], mu[2]))
-    samples = Particle_filter(samples, z_2_set, Sigma_v2, h2)
-    mu = np.mean(samples, axis = 0)
-    print('Particle_filter with z2, mu=(%f, %f, %f) ' % (mu[0], mu[1], mu[2]))
-    copy_samples = Particle_filter(copy_samples, z_set, Sigma_v12, h12)
-    mu = np.mean(copy_samples, axis = 0)
-    print('Particle_filter with z12, mu=(%f, %f, %f) ' % (mu[0], mu[1], mu[2]))
+    samples, trajectories = Particle_filter(samples, z_1_set, Sigma_v1, h1)
+    print('Particle_filter with z1, mu=(%f, %f, %f) ' % (trajectories[-1][0], trajectories[-1][1], trajectories[-1][2]))
+    samples, trajectories = Particle_filter(samples, z_2_set, Sigma_v2, h2)
+    print('Particle_filter with z2, mu=(%f, %f, %f) ' % (trajectories[-1][0], trajectories[-1][1], trajectories[-1][2]))
+    
+    visualization(trajectories, "PF with z1 followed by z2")
+    
+    copy_samples, trajectories = Particle_filter(copy_samples, z_set, Sigma_v12, h12)
+    print('Particle_filter with z12, mu=(%f, %f, %f) ' % (trajectories[-1][0], trajectories[-1][1], trajectories[-1][2]))
+    visualization(trajectories, "PF with z1 stacking with z2")
 
 
     print('end')

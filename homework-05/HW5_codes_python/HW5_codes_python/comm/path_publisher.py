@@ -1,6 +1,5 @@
 
 import sys
-from tkinter.ttk import Labelframe
 sys.path.append('.')
 
 import yaml

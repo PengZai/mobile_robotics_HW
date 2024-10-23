@@ -41,6 +41,10 @@ class EKF:
         # Hint: save your predicted state and cov as X_pred and P_pred                #
         ###############################################################################
         
+        X_pred = self.gfun(X, u)
+        G = self.Gfun(X, u)
+        P_pred = G @ P @ G.T + self.M(u)
+        
 
         ###############################################################################
         #                         END OF YOUR CODE                                    #
@@ -69,7 +73,20 @@ class EKF:
         #       landmark, and landmark1.getPosition()[1] to get its y position        #
         ###############################################################################
 
-        
+        z = np.hstack((z[:2], z[3:5]))
+        z1_hat = self.hfun(landmark1.getPosition()[0], landmark1.getPosition()[1], X_predict)
+        z2_hat = self.hfun(landmark2.getPosition()[0], landmark2.getPosition()[1], X_predict)
+        z_hat = np.hstack((z1_hat, z2_hat))
+
+        H1 = self.Hfun(landmark1.getPosition()[0], landmark1.getPosition()[1], X_predict, z1_hat)
+        H2 = self.Hfun(landmark2.getPosition()[0], landmark2.getPosition()[1], X_predict, z2_hat)
+        H = np.vstack((H1, H2))
+        Q = np.zeros((self.Q.shape[0]*2, self.Q.shape[1]*2))
+        Q[:2, :2] = self.Q
+        Q[2:, 2:] = self.Q
+        K = P_predict @ H.T @ np.linalg.inv(H @ P_predict @ H.T + Q)
+        X = X_predict + K @ (z - z_hat)
+        P = (np.eye(P_predict.shape[0]) - K @ H) @ P_predict
         ###############################################################################
         #                         END OF YOUR CODE                                    #
         ###############################################################################

@@ -8,10 +8,20 @@ class myStruct:
     pass
 
 def gfun(mu, u):
+
     output = np.zeros(3)
-    output[0] = mu[0] + (-u[0] / u[1] * np.sin(mu[2]) + u[0] / u[1] * np.sin(mu[2] + u[1]))
-    output[1] = mu[1] + ( u[0] / u[1] * np.cos(mu[2]) - u[0] / u[1] * np.cos(mu[2] + u[1]))
-    output[2] = mu[2] + u[1] + u[2]
+
+    if u[1]==0:
+        output[0] = mu[0] + np.cos(u[2])*u[0]
+        output[1] = mu[1] + np.sin(u[2])*u[0]
+        output[2] = mu[2] + u[1] + u[2]
+
+    else:
+
+        output[0] = mu[0] + (-u[0] / u[1] * np.sin(mu[2]) + u[0] / u[1] * np.sin(mu[2] + u[1]))
+        output[1] = mu[1] + ( u[0] / u[1] * np.cos(mu[2]) - u[0] / u[1] * np.cos(mu[2] + u[1]))
+        output[2] = mu[2] + u[1] + u[2]
+        
     return output
 
 def hfun(landmark_x, landmark_y, mu_pred):

@@ -32,7 +32,8 @@ class DataHandler:
         data = data_generated
         self.data = data
 
-        out['motionCommand'] = np.array(data[:,6:9]) # [Trans_vel,Angular_vel,gamma]' noisy control command
+        # out['motionCommand'] = np.array(data[:,6:9]) # [Trans_vel,Angular_vel,gamma]' noisy control command
+        out['motionCommand'] = np.array(data[:,6:9]) # [Trans_vel,Angular_vel,gamma]' noisy free control command
         out['observation_1'] = np.array(data[:,0:3]) # [bearing, range, landmark_id]' noisy observation
         out['observation_2'] = np.array(data[:,3:6]) # [bearing, range, landmark_id]' noisy observation
         out['observation'] = np.hstack((data[:,0:3], data[:,3:6]))

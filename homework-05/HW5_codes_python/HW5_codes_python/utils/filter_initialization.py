@@ -10,9 +10,18 @@ class myStruct:
 init = myStruct()
 
 def Gfun(mu,u):
-    output = np.array([[1,0,(u[0]*np.cos(mu[2]+u[1]))/u[1]-(u[0]*np.cos(mu[2]))/u[1]],\
-                        [0,1,(u[0]*np.sin(mu[2]+u[1]))/u[1]-(u[0]*np.sin(mu[2]))/u[1]],\
-                        [0,0,1]])
+
+    if u[1] == 0:
+
+        output = np.array([[1,0,(u[0]*np.cos(mu[2]+u[1]))/u[1]-(u[0]*np.cos(mu[2]))/u[1]],\
+                            [0,1,(u[0]*np.sin(mu[2]+u[1]))/u[1]-(u[0]*np.sin(mu[2]))/u[1]],\
+                            [0,0,1]])
+        
+    else:
+
+        output = np.array([[1,0,(u[0]*np.cos(mu[2]+u[1]))/u[1]-(u[0]*np.cos(mu[2]))/u[1]],\
+                            [0,1,(u[0]*np.sin(mu[2]+u[1]))/u[1]-(u[0]*np.sin(mu[2]))/u[1]],\
+                            [0,0,1]])
     return output
 
 def Vfun(mu,u):

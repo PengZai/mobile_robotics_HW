@@ -141,9 +141,10 @@ def generateScript(initialStateMean, numSteps, alphas, beta, deltaT):
         real_observation[2] += 1
         real_observation2[2] += 1
 
-        data[n,:] = np.hstack((real_observation,real_observation2,noisymotion,noisefree_observation,\
+        # data[n,:] = np.hstack((real_observation,real_observation2,noisymotion,noisefree_observation,\
+        #     noisefree_observation2,realRobot,noisefreeRobot,Y.reshape(3),Y2.reshape(3)))
+        data[n,:] = np.hstack((real_observation,real_observation2,noisefreeMotion,noisefree_observation,\
             noisefree_observation2,realRobot,noisefreeRobot,Y.reshape(3),Y2.reshape(3)))
-
 
 
 

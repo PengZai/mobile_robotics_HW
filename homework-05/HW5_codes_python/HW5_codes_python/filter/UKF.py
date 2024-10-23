@@ -29,8 +29,7 @@ class UKF:
         self.state_.setState(init.mu)
         self.state_.setCovariance(init.Sigma)
 
-
-
+    
     def prediction(self, u):
         # prior belief
         X = self.state_.getState()
@@ -41,7 +40,23 @@ class UKF:
         # Hint: save your predicted state and cov as X_pred and P_pred                #
         ###############################################################################
         
+        # propagate the input Gaussian using an unscented transform
+        self.sigma_point(X, P, self.kappa_g)
+        X_sigma_points = []
+        X_sigma_point_mean = 0
+        for i in range(2*self.n + 1):
+            X_sigma_point = self.gfun(self.X[:, i], u)
+            X_sigma_points.append(X_sigma_point)
+            X_sigma_point_mean += self.w[i] * X_sigma_point
 
+        X_sigma_points = (np.array(X_sigma_points).reshape([2*self.n+1, -1])).T
+        temp = X_sigma_points - X_sigma_point_mean.reshape(self.n, 1)
+        X_Cov = np.dot(np.dot(temp, np.diag(self.w)), temp.T)
+
+        X_pred = X_sigma_point_mean
+        P_pred = X_Cov
+
+   
         ###############################################################################
         #                         END OF YOUR CODE                                    #
         ###############################################################################
@@ -66,7 +81,38 @@ class UKF:
         #       landmark, and landmark1.getPosition()[1] to get its y position        #
         ###############################################################################
 
+        z = np.hstack((z[:2], z[3:5]))
+        Q = np.zeros((self.Q.shape[0]*2, self.Q.shape[1]*2))
+        Q[:2, :2] = self.Q
+        Q[2:, 2:] = self.Q
+
+
+        self.sigma_point(X_predict, P_predict, self.kappa_g)
+        Z_hats = []
+        Z_hat_mean = 0
+        for i in range(2*self.n + 1):
+            Z1_hat = self.hfun(landmark1.getPosition()[0], landmark1.getPosition()[1], self.X[:, i])
+            Z2_hat = self.hfun(landmark2.getPosition()[0], landmark2.getPosition()[1], self.X[:, i])
+            Z_hat = np.hstack((Z1_hat, Z2_hat))
+            Z_hats.append(Z_hat)
+            Z_hat_mean += self.w[i] * Z_hat
+
+        Z_hats = (np.array(Z_hats).reshape([2*self.n+1, -1])).T
+        temp = Z_hats - np.expand_dims(Z_hat_mean, axis=1)
+
+        # innovation covariance
+        S = np.dot(np.dot(temp, np.diag(self.w)), temp.T) + Q
+
+        # compute state-measurement cross covariance
+        Cov_xz = np.dot(np.dot(self.X - np.expand_dims(X_predict, axis=1), np.diag(self.w)), (Z_hats - np.expand_dims(Z_hat_mean, axis=1)).T)
+
+        # filter gain
+        K = np.dot(Cov_xz, np.linalg.inv(S))  
         
+        # correct the predicted state statistics
+        X = X_predict + K @ (z - Z_hat_mean)
+        P = P_predict - K @ S @ K.T
+
         ###############################################################################
         #                         END OF YOUR CODE                                    #
         ###############################################################################
@@ -76,9 +122,11 @@ class UKF:
         self.state_.setCovariance(P)
 
     def sigma_point(self, mean, cov, kappa):
+        
         self.n = len(mean) # dim of state
+        mean = mean.reshape((self.n, 1))
         L = np.sqrt(self.n + kappa) * np.linalg.cholesky(cov)
-        Y = mean.repeat(len(mean), axis=1)
+        Y = mean.repeat(len(mean), axis=-1)
         self.X = np.hstack((mean, Y+L, Y-L))
         self.w = np.zeros([2 * self.n + 1, 1])
         self.w[0] = kappa / (self.n + kappa)

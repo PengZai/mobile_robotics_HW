@@ -32,7 +32,7 @@ class PF:
         self.Sigma = init.Sigma
         self.particles = init.particles
         self.particle_weight = init.particle_weight
-
+        self.Neff = 1/np.sum(np.power(self.particle_weight, 2))
         
         self.state_ = RobotState()
         self.state_.setState(init.mu)
@@ -46,8 +46,15 @@ class PF:
         # Hint: Use rng.standard_normal instead of np.random.randn.                   #
         #       It is statistically more random.                                      #
         ###############################################################################
-        pass
+        
+        # sample noise
+        LM = np.linalg.cholesky(self.M(u)) # cholesky on a diagonal matrix just sqrt its diagonal elements
+        particles = np.zeros(self.particles.T.shape)
+        for i in range(self.n):
+            wi = np.dot(LM, rng.standard_normal(3)) # noise sample
+            particles[i] = self.gfun(self.particles.T[i], u) + wi
 
+        self.particles = particles.T
         ###############################################################################
         #                         END OF YOUR CODE                                    #
         ###############################################################################
@@ -64,7 +71,26 @@ class PF:
         #       landmark, and landmark1.getPosition()[1] to get its y position        #
         ###############################################################################
 
+        z = np.hstack((z[:2], z[3:5]))
+        w = np.zeros(self.n) # important weight
+        Q = np.zeros((self.Q.shape[0]*2, self.Q.shape[1]*2))
+        Q[:2, :2] = self.Q
+        Q[2:, 2:] = self.Q
+
+        for i in range(self.n):
+
+            z1_hat = self.hfun(landmark1.getPosition()[0], landmark1.getPosition()[1], self.particles.T[i])
+            z2_hat = self.hfun(landmark2.getPosition()[0], landmark2.getPosition()[1], self.particles.T[i])
+            z_hat = np.hstack((z1_hat, z2_hat))
+            w[i] = multivariate_normal.pdf(z, z_hat, Q)
+
         
+        self.particle_weight = np.multiply(self.particle_weight, w)
+        self.particle_weight = self.particle_weight / np.sum(self.particle_weight)
+        self.Neff = 1/np.sum(np.power(self.particle_weight, 2))
+
+        if self.Neff < self.n / 5:
+            self.resample()
         ###############################################################################
         #                         END OF YOUR CODE                                    #
         ###############################################################################

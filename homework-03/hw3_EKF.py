@@ -199,7 +199,7 @@ if __name__ == "__main__":
         plt.xlabel(r'$t$')
         plt.ylabel(r'$altitude$')
         plt.savefig(save_name+".png")
-        plt.show()
+        # plt.show()
     
 
    
@@ -220,9 +220,9 @@ if __name__ == "__main__":
     # print('Particle_filter with z2, mu=(%f, %f, %f) ' % (trajectories[-1][0], trajectories[-1][1], trajectories[-1][2]))
     # visualization(np.vstack((trajectories_with_z1, trajectories_with_z2)), "PF with z1 followed by z2")    
     
-    # copy_samples, trajectories = Particle_filter(copy_samples, z_set, Sigma_v12, h12)
-    # print('Particle_filter with z12, mu=(%f, %f, %f) ' % (trajectories[-1][0], trajectories[-1][1], trajectories[-1][2]))
-    # visualization(trajectories, "PF with z1 stacking with z2")
+    copy_samples, trajectories = Particle_filter(copy_samples, z_set, Sigma_v12, h12)
+    print('Particle_filter with z12, mu=(%f, %f, %f) ' % (trajectories[-1][0], trajectories[-1][1], trajectories[-1][2]))
+    visualization(trajectories, "PF with z1 stacking with z2")
 
 
     print('end')

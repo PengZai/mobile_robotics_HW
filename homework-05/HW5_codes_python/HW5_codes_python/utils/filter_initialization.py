@@ -13,8 +13,8 @@ def Gfun(mu,u):
 
     if u[1] == 0:
 
-        output = np.array([[1,0,(u[0]*np.cos(mu[2]+u[1]))/u[1]-(u[0]*np.cos(mu[2]))/u[1]],\
-                            [0,1,(u[0]*np.sin(mu[2]+u[1]))/u[1]-(u[0]*np.sin(mu[2]))/u[1]],\
+        output = np.array([[1,0,-u[0]*np.sin(mu[2])],\
+                            [0,1,u[0]*np.cos(mu[2])],\
                             [0,0,1]])
         
     else:
@@ -23,6 +23,18 @@ def Gfun(mu,u):
                             [0,1,(u[0]*np.sin(mu[2]+u[1]))/u[1]-(u[0]*np.sin(mu[2]))/u[1]],\
                             [0,0,1]])
     return output
+
+
+# def Gfun(mu,u):
+
+    
+
+#     output = np.array([ [1,0,0],\
+#                         [0,1,0],\
+#                         [0,0,1]])
+        
+ 
+#     return output
 
 def Vfun(mu,u):
     output = np.array([[np.sin(mu[2]+u[1])/u[1]-np.sin(mu[2])/u[1], (u[0]*np.cos(mu[2]+u[1]))/u[1]-(u[0]*np.sin(mu[2]+u[1]))/(u[1]**2)+(u[0]*np.sin(mu[2]))/(u[1]**2), 0],\

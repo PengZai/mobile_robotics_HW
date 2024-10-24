@@ -29,11 +29,27 @@ class UKF:
         self.state_.setState(init.mu)
         self.state_.setCovariance(init.Sigma)
 
+        
     
     def prediction(self, u):
         # prior belief
-        X = self.state_.getState()
-        P = self.state_.getCovariance()
+        mu = self.state_.getState()
+        Sigma = self.state_.getCovariance()
+
+        
+        
+        M = self.M(u)
+        Q = np.zeros((self.Q.shape[0]*2, self.Q.shape[1]*2))
+        Q[:2, :2] = self.Q
+        Q[2:, 2:] = self.Q
+
+        X = np.zeros(len(mu)+len(u)+len(Q))
+        X[:len(mu)] = mu
+        P = np.block([
+                     [Sigma, np.zeros((Sigma.shape[0], M.shape[1])), np.zeros((Sigma.shape[0], Q.shape[1]))],
+                     [np.zeros((M.shape[0], Sigma.shape[1])), M, np.zeros((M.shape[0], Q.shape[1]))],
+                     [np.zeros((Q.shape[0], Sigma.shape[1])), np.zeros((Q.shape[0], M.shape[1])), Q]
+                     ])
 
         ###############################################################################
         # TODO: Implement the prediction step for UKF                                 #
@@ -45,12 +61,12 @@ class UKF:
         X_sigma_points = []
         X_sigma_point_mean = 0
         for i in range(2*self.n + 1):
-            X_sigma_point = self.gfun(self.X[:, i], u)
-            X_sigma_points.append(X_sigma_point)
-            X_sigma_point_mean += self.w[i] * X_sigma_point
+            self.X[:3, i] = self.gfun(self.X[:3, i], u+self.X[3:6, i])
+            X_sigma_points.append(self.X[:3, i])
+            X_sigma_point_mean += self.w[i] * self.X[:3, i]
 
         X_sigma_points = (np.array(X_sigma_points).reshape([2*self.n+1, -1])).T
-        temp = X_sigma_points - X_sigma_point_mean.reshape(self.n, 1)
+        temp = X_sigma_points - np.expand_dims(X_sigma_point_mean, axis=-1)
         X_Cov = np.dot(np.dot(temp, np.diag(self.w)), temp.T)
 
         X_pred = X_sigma_point_mean
@@ -82,18 +98,13 @@ class UKF:
         ###############################################################################
 
         z = np.hstack((z[:2], z[3:5]))
-        Q = np.zeros((self.Q.shape[0]*2, self.Q.shape[1]*2))
-        Q[:2, :2] = self.Q
-        Q[2:, 2:] = self.Q
 
-
-        self.sigma_point(X_predict, P_predict, self.kappa_g)
         Z_hats = []
         Z_hat_mean = 0
         for i in range(2*self.n + 1):
-            Z1_hat = self.hfun(landmark1.getPosition()[0], landmark1.getPosition()[1], self.X[:, i])
-            Z2_hat = self.hfun(landmark2.getPosition()[0], landmark2.getPosition()[1], self.X[:, i])
-            Z_hat = np.hstack((Z1_hat, Z2_hat))
+            Z1_hat = self.hfun(landmark1.getPosition()[0], landmark1.getPosition()[1], self.X[:3, i])
+            Z2_hat = self.hfun(landmark2.getPosition()[0], landmark2.getPosition()[1], self.X[:3, i])
+            Z_hat = np.hstack((Z1_hat, Z2_hat)) + self.X[6:, i]
             Z_hats.append(Z_hat)
             Z_hat_mean += self.w[i] * Z_hat
 
@@ -101,10 +112,10 @@ class UKF:
         temp = Z_hats - np.expand_dims(Z_hat_mean, axis=1)
 
         # innovation covariance
-        S = np.dot(np.dot(temp, np.diag(self.w)), temp.T) + Q
+        S = np.dot(np.dot(temp, np.diag(self.w)), temp.T)
 
         # compute state-measurement cross covariance
-        Cov_xz = np.dot(np.dot(self.X - np.expand_dims(X_predict, axis=1), np.diag(self.w)), (Z_hats - np.expand_dims(Z_hat_mean, axis=1)).T)
+        Cov_xz = np.dot(np.dot(self.X[:3] - np.expand_dims(X_predict, axis=1), np.diag(self.w)), (Z_hats - np.expand_dims(Z_hat_mean, axis=1)).T)
 
         # filter gain
         K = np.dot(Cov_xz, np.linalg.inv(S))  

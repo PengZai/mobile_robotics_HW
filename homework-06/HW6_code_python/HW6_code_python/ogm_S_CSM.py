@@ -17,6 +17,9 @@ class ogm_S_CSM:
         self.range_x = [-15, 20]
         self.range_y = [-25, 10]
 
+        # self.range_x = [-2, 2]
+        # self.range_y = [-2, 2]
+
         # senesor parameters
         self.z_max = 30     # max range in meters
         self.n_beams = 133  # number of beams, we set it to 133 because not all measurements in the dataset contains 180 beams 
@@ -41,8 +44,9 @@ class ogm_S_CSM:
         # prior initialization
         # Initialize prior, prior_alpha
         # -----------------------------------------------
-        self.prior = None            # prior for setting up mean and variance
-        self.prior_alpha = None      # a small, uninformative prior for setting up alpha
+        self.prior = 0.00001            # prior for setting up mean and variance
+        self.prior_alpha = self.prior      # a small, uninformative prior for setting up alpha
+
 
     def construct_map(self, pose, scan):
         # class constructor
@@ -67,9 +71,9 @@ class ogm_S_CSM:
         # To Do: 
         # Initialization map parameters such as map['mean'], map['variance'], map['alpha']
         # -----------------------------------------------
-        self.map['mean'] = None        # size should be (number of data) x (number of classes + 1)
-        self.map['variance'] = None    # size should be (number of data) x (1)
-        self.map['alpha'] = None       # size should be (number of data) x (number of classes + 1)
+        self.map['mean'] = np.zeros([t.shape[0], self.num_classes+1])         # size should be (number of data) x (number of classes + 1)
+        self.map['variance'] = np.zeros([t.shape[0], 1])    # size should be (number of data) x (1)
+        self.map['alpha'] = np.ones([t.shape[0], self.num_classes+1]) * self.prior_alpha     # size should be (number of data) x (number of classes + 1)
 
 
     def is_in_perceptual_field(self, m, p):
@@ -141,3 +145,6 @@ class ogm_S_CSM:
             # -----------------------------------------------
             alpha_sum = np.sum(self.map['alpha'][i, :])
             self.map['mean'][i] = self.map['alpha'][i] / alpha_sum
+            max_alpha = np.max(self.map['alpha'][i, :])
+            self.map['variance'][i] = (max_alpha/alpha_sum) * (1 - max_alpha/alpha_sum) / (alpha_sum+1)
+

@@ -16,6 +16,8 @@ class ogm_continous_S_CSM:
         # map dimensions
         self.range_x = [-15, 20]
         self.range_y = [-25, 10]
+        # self.range_x = [-2, 2]
+        # self.range_y = [-2, 2]
 
         # senesor parameters
         self.z_max = 30     # max range in meters
@@ -43,9 +45,8 @@ class ogm_continous_S_CSM:
         # prior initialization
         # Initialize prior, prior_alpha
         # -----------------------------------------------
-        self.prior = None            # prior for setting up mean and variance
-        self.prior_alpha = None      # a small, uninformative prior for setting up alpha
-
+        self.prior = 0.00001            # prior for setting up mean and variance
+        self.prior_alpha = self.prior      # a small, uninformative prior for setting up alpha
 
     def construct_map(self, pose, scan):
         # class constructor
@@ -70,9 +71,9 @@ class ogm_continous_S_CSM:
         # To Do: 
         # Initialization map parameters such as map['mean'], map['variance'], map['alpha']
         # -----------------------------------------------
-        self.map['mean'] = None              # size should be (number of data) x (number of classes + 1)
-        self.map['variance'] = None          # size should be (number of data) x (1)
-        self.map['alpha'] = None             # size should be (number of data) x (number of classes + 1)
+        self.map['mean'] = np.zeros([t.shape[0], self.num_classes+1])         # size should be (number of data) x (number of classes + 1)
+        self.map['variance'] = np.zeros([t.shape[0], 1])    # size should be (number of data) x (1)
+        self.map['alpha'] = np.ones([t.shape[0], self.num_classes+1]) * self.prior_alpha     # size should be (number of data) x (number of classes + 1)
 
 
     def is_in_perceptual_field(self, m, p):
@@ -88,17 +89,24 @@ class ogm_continous_S_CSM:
             if (-np.pi < self.m_i['phi']) and (self.m_i['phi'] < np.pi):
                 inside = True
         return inside
-
+    
+    def kernel(self, d):
+        dd = d/self.l
+        if d < self.l:
+            return self.sigma * (1/3 * (2+np.cos(2*np.pi*dd)) * (1-dd) + 1/(2*np.pi) * np.sin(2*np.pi*dd))
+        else:
+            return 0
 
     def continuous_S_CSM(self, z, i, k):
         bearing_diff = []
         # find the nearest beam
         bearing_diff = np.abs(wrapToPI(z[:, 1] - self.m_i['phi']))
         idx = np.nanargmin(bearing_diff)
-        bearing_min = bearing_diff[idx]
         global_x = self.pose['x'][k][0] + z[idx,0] * np.cos(z[idx,1] + self.pose['h'][k][0])
         global_y = self.pose['y'][k][0] + z[idx,0] * np.sin(z[idx,1] + self.pose['h'][k][0])
-
+        xk = np.array((global_x, global_y))
+        m = self.map['occMap'].data[i, :]
+        d1 = np.sum(np.power(np.abs(m-xk), 2))
         # -----------------------------------------------
         # To Do: 
         # implement the continuous counting sensor model, update 
@@ -110,7 +118,20 @@ class ogm_continous_S_CSM:
         # values and update the free space if the distance is smaller 
         # than obj.l  
         # -----------------------------------------------
+        if d1 < self.l:
+            kernel_value = self.kernel(d1)
+            self.map['alpha'][i, int(z[idx, 2]-1)] += kernel_value
 
+        for segment in np.arange(0, z[idx,0], self.grid_size):
+
+            global_x = self.pose['x'][k][0] + segment * np.cos(z[idx,1] + self.pose['h'][k][0])
+            global_y = self.pose['y'][k][0] + segment * np.sin(z[idx,1] + self.pose['h'][k][0])
+            # xl is the global coordinates of cloest scan's seperated point along measurement range
+            xl = np.array((global_x, global_y))
+            d2 = np.sum(np.power(np.abs(m-xl), 2))
+            if d2 < self.l:
+                kernel_value = self.kernel(d2)
+                self.map['alpha'][i, self.num_classes] += kernel_value
 
     def build_ogm(self):
         # build occupancy grid map using the binary Bayes filter.
@@ -135,8 +156,13 @@ class ogm_continous_S_CSM:
                         # To Do: 
                         # update the sensor model in cell i
                         # -----------------------------------------------
+                        self.continuous_S_CSM(z, i, k)
 
             # -----------------------------------------------
             # To Do: 
             # update mean and variance for each cell i
             # -----------------------------------------------
+            alpha_sum = np.sum(self.map['alpha'][i, :])
+            self.map['mean'][i] = self.map['alpha'][i] / alpha_sum
+            max_alpha = np.max(self.map['alpha'][i, :])
+            self.map['variance'][i] = (max_alpha/alpha_sum) * (1 - max_alpha/alpha_sum) / (alpha_sum+1)

@@ -17,6 +17,9 @@ class ogm_CSM:
         self.range_x = [-15, 20]
         self.range_y = [-25, 10]
 
+        # self.range_x = [-2, 2]
+        # self.range_y = [-2, 2]
+
         # senesor parameters
         self.z_max = 30     # max range in meters
         self.n_beams = 133  # number of beams, we set it to 133 because not all measurements in the dataset contains 180 beams 
@@ -38,8 +41,9 @@ class ogm_CSM:
         # prior initialization
         # Initialize prior, prior_alpha
         # -----------------------------------------------
-        self.prior = None            # prior for setting up mean and variance
-        self.prior_alpha = None      # a small, uninformative prior for setting up alpha
+        self.prior = 0.00001            # prior for setting up mean and variance
+        self.prior_alpha = self.prior      # a small, uninformative prior for setting up alpha
+        self.prior_beta = self.prior
 
     def construct_map(self, pose, scan):
         # class constructor
@@ -52,7 +56,6 @@ class ogm_CSM:
         # a simple KDTree data structure for map coordinates
         self.map['occMap'] = KDTree(t)
         self.map['size'] = t.shape[0]
-
         # set robot pose and laser scan data
         self.pose['x'] = pose['x'][0][0]
         self.pose['y'] = pose['y'][0][0]
@@ -64,10 +67,10 @@ class ogm_CSM:
         # To Do: 
         # Initialization map parameters such as map['mean'], map['variance'], map['alpha'], map['beta']
         # -----------------------------------------------
-        self.map['mean'] = None       # size should be (number of data) x (1)
-        self.map['variance'] = None   # size should be (number of data) x (1)
-        self.map['alpha'] = None
-        self.map['beta'] = None
+        self.map['mean'] = np.zeros([t.shape[0], 1])       # size should be (number of data) x (1)
+        self.map['variance'] = np.zeros([t.shape[0], 1])   # size should be (number of data) x (1)
+        self.map['alpha'] = np.ones([t.shape[0], 1]) * self.prior_alpha
+        self.map['beta'] = np.ones([t.shape[0], 1]) * self.prior_beta
 
 
     def is_in_perceptual_field(self, m, p):
@@ -100,6 +103,12 @@ class ogm_CSM:
         # inverse sensor model
         # -----------------------------------------------
 
+        if self.m_i['range'] > np.min((self.z_max, z[k, 0]+ self.w_obstacle/2)) or bearing_min > self.w_beam:
+            pass
+        elif z[k, 0] < self.z_max and np.abs(self.m_i['range'] - z[k, 0]) < self.w_obstacle/2:
+            self.map['alpha'][i, 0] += 1
+        elif self.m_i['range'] < z[k, 0] and z[k, 0] < self.z_max:
+            self.map['beta'][i, 0] += 1
 
     def build_ogm(self):
         # build occupancy grid map using the binary Bayes filter.
@@ -123,8 +132,11 @@ class ogm_CSM:
                         # To Do: 
                         # update the sensor model in cell i
                         # -----------------------------------------------
-
+                        # update the cell i belief using log odds formula
+                        self.counting_sensor_model(z,i)
             # -----------------------------------------------
             # To Do: 
             # update mean and variance for each cell i
             # -----------------------------------------------
+            self.map['mean'][i, 0] = self.map['alpha'][i, 0]/(self.map['alpha'][i, 0]+self.map['beta'][i, 0])
+            self.map['variance'][i, 0] = self.map['alpha'][i, 0] * self.map['beta'][i, 0]/np.power(self.map['alpha'][i, 0] + self.map['beta'][i, 0], 2) * (self.map['alpha'][i, 0] + self.map['beta'][i, 0]+1)

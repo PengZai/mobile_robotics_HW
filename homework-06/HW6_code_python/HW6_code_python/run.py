@@ -13,7 +13,7 @@ from ogm_continous_S_CSM import ogm_continous_S_CSM
 def parse_args():
     parser = argparse.ArgumentParser(description='Run HW6')
     parser.add_argument('--task_num', type=int, help='Which task are you running?',
-                        default=2)
+                        default=4)
     parser.add_argument('--plot', dest='plot', action='store_false')
     args = parser.parse_args()
     return args

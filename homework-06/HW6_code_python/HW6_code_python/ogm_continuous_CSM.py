@@ -123,7 +123,7 @@ class ogm_continuous_CSM:
             kernel_value = self.kernel(d1)
             self.map['alpha'][i, 0] += kernel_value
 
-        for segment in np.arange(0, z[idx,0], self.grid_size):
+        for segment in np.arange(0, z[idx,0]-self.grid_size, self.grid_size):
 
             global_x = self.pose['x'][k][0] + segment * np.cos(z[idx,1] + self.pose['h'][k][0])
             global_y = self.pose['y'][k][0] + segment * np.sin(z[idx,1] + self.pose['h'][k][0])

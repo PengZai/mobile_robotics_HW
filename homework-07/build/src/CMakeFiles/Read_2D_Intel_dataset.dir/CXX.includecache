@@ -1,0 +1,18 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../include/edge.hpp
+bits/stdc++.h
+-
+
+/home/zhipeng/vscode_projects/UMich-ROB-530-public/homework/mobile_robotics_HW/homework-07/src/edge.cc
+edge.hpp
+/home/zhipeng/vscode_projects/UMich-ROB-530-public/homework/mobile_robotics_HW/homework-07/src/edge.hpp
+bits/stdc++.h
+-
+

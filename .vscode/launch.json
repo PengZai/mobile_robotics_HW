@@ -5,6 +5,18 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "Read_2D_Intel_dataset",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "${workspaceFolder}/homework-07/bin/Read_2D_Intel_dataset",
+      "args": [],
+      "stopAtEntry": false,
+      "cwd": "${fileDirname}",
+      "environment": [],
+      "externalConsole": false,
+      "MIMode": "gdb",
+    },
+    {
       "name": "Python Debugger: Current File",
       "type": "debugpy",
       "request": "launch",

@@ -16,8 +16,8 @@ public:
     // int getVertexId1() const;
     // int getVertexId2() const;
 
-    // // Getter for position constraint (x, y, theta)
-    // std::tuple<double, double, double> getConstraint() const;
+    // Getter for position constraint (x, y, theta)
+    std::tuple<double, double, double> getConstraint() const;
 
     // // Getter for 6D covariance vector
     // const std::vector<double>& getInformationMatrix() const;

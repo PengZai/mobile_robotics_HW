@@ -125,6 +125,33 @@ Read_2D_Intel_dataset/fast:
 	cd /home/zhipeng/vscode_projects/UMich-ROB-530-public/homework/mobile_robotics_HW/homework-07/build && $(MAKE) -f src/CMakeFiles/Read_2D_Intel_dataset.dir/build.make src/CMakeFiles/Read_2D_Intel_dataset.dir/build
 .PHONY : Read_2D_Intel_dataset/fast
 
+data_parse.o: data_parse.cc.o
+
+.PHONY : data_parse.o
+
+# target to build an object file
+data_parse.cc.o:
+	cd /home/zhipeng/vscode_projects/UMich-ROB-530-public/homework/mobile_robotics_HW/homework-07/build && $(MAKE) -f src/CMakeFiles/Read_2D_Intel_dataset.dir/build.make src/CMakeFiles/Read_2D_Intel_dataset.dir/data_parse.cc.o
+.PHONY : data_parse.cc.o
+
+data_parse.i: data_parse.cc.i
+
+.PHONY : data_parse.i
+
+# target to preprocess a source file
+data_parse.cc.i:
+	cd /home/zhipeng/vscode_projects/UMich-ROB-530-public/homework/mobile_robotics_HW/homework-07/build && $(MAKE) -f src/CMakeFiles/Read_2D_Intel_dataset.dir/build.make src/CMakeFiles/Read_2D_Intel_dataset.dir/data_parse.cc.i
+.PHONY : data_parse.cc.i
+
+data_parse.s: data_parse.cc.s
+
+.PHONY : data_parse.s
+
+# target to generate assembly for a file
+data_parse.cc.s:
+	cd /home/zhipeng/vscode_projects/UMich-ROB-530-public/homework/mobile_robotics_HW/homework-07/build && $(MAKE) -f src/CMakeFiles/Read_2D_Intel_dataset.dir/build.make src/CMakeFiles/Read_2D_Intel_dataset.dir/data_parse.cc.s
+.PHONY : data_parse.cc.s
+
 edge.o: edge.cc.o
 
 .PHONY : edge.o
@@ -215,6 +242,9 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... Read_2D_Intel_dataset"
+	@echo "... data_parse.o"
+	@echo "... data_parse.i"
+	@echo "... data_parse.s"
 	@echo "... edge.o"
 	@echo "... edge.i"
 	@echo "... edge.s"

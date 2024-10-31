@@ -111,17 +111,30 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named Read_2D_Intel_dataset
+# Target rules for targets named main
 
 # Build rule for target.
-Read_2D_Intel_dataset: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 Read_2D_Intel_dataset
-.PHONY : Read_2D_Intel_dataset
+main: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 main
+.PHONY : main
 
 # fast build rule for target.
-Read_2D_Intel_dataset/fast:
-	$(MAKE) -f src/CMakeFiles/Read_2D_Intel_dataset.dir/build.make src/CMakeFiles/Read_2D_Intel_dataset.dir/build
-.PHONY : Read_2D_Intel_dataset/fast
+main/fast:
+	$(MAKE) -f src/CMakeFiles/main.dir/build.make src/CMakeFiles/main.dir/build
+.PHONY : main/fast
+
+#=============================================================================
+# Target rules for targets named read_input_intel_g2o
+
+# Build rule for target.
+read_input_intel_g2o: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 read_input_intel_g2o
+.PHONY : read_input_intel_g2o
+
+# fast build rule for target.
+read_input_intel_g2o/fast:
+	$(MAKE) -f src/CMakeFiles/read_input_intel_g2o.dir/build.make src/CMakeFiles/read_input_intel_g2o.dir/build
+.PHONY : read_input_intel_g2o/fast
 
 # Help Target
 help:
@@ -131,7 +144,8 @@ help:
 	@echo "... depend"
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
-	@echo "... Read_2D_Intel_dataset"
+	@echo "... main"
+	@echo "... read_input_intel_g2o"
 .PHONY : help
 
 

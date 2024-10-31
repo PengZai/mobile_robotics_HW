@@ -1,0 +1,44 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../include/data_parse.hpp
+bits/stdc++.h
+-
+edge.hpp
+../include/edge.hpp
+vertex.hpp
+../include/vertex.hpp
+
+../include/edge.hpp
+bits/stdc++.h
+-
+eigen3/Eigen/Dense
+-
+
+../include/read_input_intel_g2o.hpp
+bits/stdc++.h
+../include/bits/stdc++.h
+vertex.hpp
+../include/vertex.hpp
+edge.hpp
+../include/edge.hpp
+data_parse.hpp
+../include/data_parse.hpp
+
+../include/vertex.hpp
+bits/stdc++.h
+-
+
+/home/zhipeng/vscode_projects/UMich-ROB-530-public/homework/mobile_robotics_HW/homework-07/src/data_parse.cc
+data_parse.hpp
+/home/zhipeng/vscode_projects/UMich-ROB-530-public/homework/mobile_robotics_HW/homework-07/src/data_parse.hpp
+
+/home/zhipeng/vscode_projects/UMich-ROB-530-public/homework/mobile_robotics_HW/homework-07/src/read_input_intel_g2o.cc
+read_input_intel_g2o.hpp
+/home/zhipeng/vscode_projects/UMich-ROB-530-public/homework/mobile_robotics_HW/homework-07/src/read_input_intel_g2o.hpp
+

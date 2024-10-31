@@ -5,10 +5,10 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Read_2D_Intel_dataset",
+            "name": "main",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/bin/Read_2D_Intel_dataset",
+            "program": "${workspaceFolder}/bin/main",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",

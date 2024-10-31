@@ -1,1 +1,0 @@
-/usr/bin/c++  -g -g  -rdynamic CMakeFiles/Read_2D_Intel_dataset.dir/main.cc.o CMakeFiles/Read_2D_Intel_dataset.dir/vertex.cc.o CMakeFiles/Read_2D_Intel_dataset.dir/edge.cc.o CMakeFiles/Read_2D_Intel_dataset.dir/data_parse.cc.o  -o ../../bin/Read_2D_Intel_dataset 

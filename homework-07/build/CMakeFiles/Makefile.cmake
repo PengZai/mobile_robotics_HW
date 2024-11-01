@@ -110,5 +110,7 @@ set(CMAKE_MAKEFILE_PRODUCTS
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
   "src/CMakeFiles/main.dir/DependInfo.cmake"
+  "src/CMakeFiles/incremental_optimization_for_2D_graph_C.dir/DependInfo.cmake"
+  "src/CMakeFiles/batch_optimization_for_2D_graph_B.dir/DependInfo.cmake"
   "src/CMakeFiles/read_input_intel_g2o.dir/DependInfo.cmake"
   )

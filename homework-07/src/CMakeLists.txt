@@ -24,6 +24,23 @@ add_executable( read_input_intel_g2o
     data_parse.cc
 )
 
+add_executable( batch_optimization_for_2D_graph_B 
+    batch_optimization_for_2D_graph_B.cc
+    vertex.cc
+    edge.cc
+    data_parse.cc
+    utilities.cc
+)
+
+
+add_executable( incremental_optimization_for_2D_graph_C 
+    incremental_optimization_for_2D_graph_C.cc
+    vertex.cc
+    edge.cc
+    data_parse.cc
+    utilities.cc
+)
+
 add_executable( main 
     main.cc
     vertex.cc
@@ -38,7 +55,17 @@ target_link_libraries(
     Eigen3::Eigen
     )
 
+target_link_libraries(
+    batch_optimization_for_2D_graph_B 
+    gtsam
+    Eigen3::Eigen
+    )
 
+target_link_libraries(
+    incremental_optimization_for_2D_graph_C 
+    gtsam
+    Eigen3::Eigen
+    )
 
 target_link_libraries(
     main 

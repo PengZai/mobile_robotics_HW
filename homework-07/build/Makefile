@@ -124,6 +124,32 @@ main/fast:
 .PHONY : main/fast
 
 #=============================================================================
+# Target rules for targets named incremental_optimization_for_2D_graph_C
+
+# Build rule for target.
+incremental_optimization_for_2D_graph_C: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 incremental_optimization_for_2D_graph_C
+.PHONY : incremental_optimization_for_2D_graph_C
+
+# fast build rule for target.
+incremental_optimization_for_2D_graph_C/fast:
+	$(MAKE) -f src/CMakeFiles/incremental_optimization_for_2D_graph_C.dir/build.make src/CMakeFiles/incremental_optimization_for_2D_graph_C.dir/build
+.PHONY : incremental_optimization_for_2D_graph_C/fast
+
+#=============================================================================
+# Target rules for targets named batch_optimization_for_2D_graph_B
+
+# Build rule for target.
+batch_optimization_for_2D_graph_B: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 batch_optimization_for_2D_graph_B
+.PHONY : batch_optimization_for_2D_graph_B
+
+# fast build rule for target.
+batch_optimization_for_2D_graph_B/fast:
+	$(MAKE) -f src/CMakeFiles/batch_optimization_for_2D_graph_B.dir/build.make src/CMakeFiles/batch_optimization_for_2D_graph_B.dir/build
+.PHONY : batch_optimization_for_2D_graph_B/fast
+
+#=============================================================================
 # Target rules for targets named read_input_intel_g2o
 
 # Build rule for target.
@@ -145,6 +171,8 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... main"
+	@echo "... incremental_optimization_for_2D_graph_C"
+	@echo "... batch_optimization_for_2D_graph_B"
 	@echo "... read_input_intel_g2o"
 .PHONY : help
 

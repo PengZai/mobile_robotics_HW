@@ -82,7 +82,7 @@ int main(const int argc, const char *argv[]){
 
 
     // process of perturbation
-    // note: you couldn't update the value of graph one by one, although the official document say we could
+    // note: you couldn't update the value of graph one by one, although the official document say we could.
     // what you can do just create a temporary gtsam::Values,
     // and insert all the perturbed value in it, then update the value of graph at once.
     std::default_random_engine generator;
@@ -142,7 +142,6 @@ int main(const int argc, const char *argv[]){
     gtsam::writeG2o(graph, result, outputFile);
 
     
-
     return 0;
 
 }

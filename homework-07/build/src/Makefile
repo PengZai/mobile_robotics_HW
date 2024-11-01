@@ -126,6 +126,36 @@ main/fast:
 .PHONY : main/fast
 
 # Convenience name for target.
+src/CMakeFiles/incremental_optimization_for_2D_graph_C.dir/rule:
+	cd /home/zhipeng/vscode_projects/UMich-ROB-530-public/homework/mobile_robotics_HW/homework-07/build && $(MAKE) -f CMakeFiles/Makefile2 src/CMakeFiles/incremental_optimization_for_2D_graph_C.dir/rule
+.PHONY : src/CMakeFiles/incremental_optimization_for_2D_graph_C.dir/rule
+
+# Convenience name for target.
+incremental_optimization_for_2D_graph_C: src/CMakeFiles/incremental_optimization_for_2D_graph_C.dir/rule
+
+.PHONY : incremental_optimization_for_2D_graph_C
+
+# fast build rule for target.
+incremental_optimization_for_2D_graph_C/fast:
+	cd /home/zhipeng/vscode_projects/UMich-ROB-530-public/homework/mobile_robotics_HW/homework-07/build && $(MAKE) -f src/CMakeFiles/incremental_optimization_for_2D_graph_C.dir/build.make src/CMakeFiles/incremental_optimization_for_2D_graph_C.dir/build
+.PHONY : incremental_optimization_for_2D_graph_C/fast
+
+# Convenience name for target.
+src/CMakeFiles/batch_optimization_for_2D_graph_B.dir/rule:
+	cd /home/zhipeng/vscode_projects/UMich-ROB-530-public/homework/mobile_robotics_HW/homework-07/build && $(MAKE) -f CMakeFiles/Makefile2 src/CMakeFiles/batch_optimization_for_2D_graph_B.dir/rule
+.PHONY : src/CMakeFiles/batch_optimization_for_2D_graph_B.dir/rule
+
+# Convenience name for target.
+batch_optimization_for_2D_graph_B: src/CMakeFiles/batch_optimization_for_2D_graph_B.dir/rule
+
+.PHONY : batch_optimization_for_2D_graph_B
+
+# fast build rule for target.
+batch_optimization_for_2D_graph_B/fast:
+	cd /home/zhipeng/vscode_projects/UMich-ROB-530-public/homework/mobile_robotics_HW/homework-07/build && $(MAKE) -f src/CMakeFiles/batch_optimization_for_2D_graph_B.dir/build.make src/CMakeFiles/batch_optimization_for_2D_graph_B.dir/build
+.PHONY : batch_optimization_for_2D_graph_B/fast
+
+# Convenience name for target.
 src/CMakeFiles/read_input_intel_g2o.dir/rule:
 	cd /home/zhipeng/vscode_projects/UMich-ROB-530-public/homework/mobile_robotics_HW/homework-07/build && $(MAKE) -f CMakeFiles/Makefile2 src/CMakeFiles/read_input_intel_g2o.dir/rule
 .PHONY : src/CMakeFiles/read_input_intel_g2o.dir/rule
@@ -140,6 +170,33 @@ read_input_intel_g2o/fast:
 	cd /home/zhipeng/vscode_projects/UMich-ROB-530-public/homework/mobile_robotics_HW/homework-07/build && $(MAKE) -f src/CMakeFiles/read_input_intel_g2o.dir/build.make src/CMakeFiles/read_input_intel_g2o.dir/build
 .PHONY : read_input_intel_g2o/fast
 
+batch_optimization_for_2D_graph_B.o: batch_optimization_for_2D_graph_B.cc.o
+
+.PHONY : batch_optimization_for_2D_graph_B.o
+
+# target to build an object file
+batch_optimization_for_2D_graph_B.cc.o:
+	cd /home/zhipeng/vscode_projects/UMich-ROB-530-public/homework/mobile_robotics_HW/homework-07/build && $(MAKE) -f src/CMakeFiles/batch_optimization_for_2D_graph_B.dir/build.make src/CMakeFiles/batch_optimization_for_2D_graph_B.dir/batch_optimization_for_2D_graph_B.cc.o
+.PHONY : batch_optimization_for_2D_graph_B.cc.o
+
+batch_optimization_for_2D_graph_B.i: batch_optimization_for_2D_graph_B.cc.i
+
+.PHONY : batch_optimization_for_2D_graph_B.i
+
+# target to preprocess a source file
+batch_optimization_for_2D_graph_B.cc.i:
+	cd /home/zhipeng/vscode_projects/UMich-ROB-530-public/homework/mobile_robotics_HW/homework-07/build && $(MAKE) -f src/CMakeFiles/batch_optimization_for_2D_graph_B.dir/build.make src/CMakeFiles/batch_optimization_for_2D_graph_B.dir/batch_optimization_for_2D_graph_B.cc.i
+.PHONY : batch_optimization_for_2D_graph_B.cc.i
+
+batch_optimization_for_2D_graph_B.s: batch_optimization_for_2D_graph_B.cc.s
+
+.PHONY : batch_optimization_for_2D_graph_B.s
+
+# target to generate assembly for a file
+batch_optimization_for_2D_graph_B.cc.s:
+	cd /home/zhipeng/vscode_projects/UMich-ROB-530-public/homework/mobile_robotics_HW/homework-07/build && $(MAKE) -f src/CMakeFiles/batch_optimization_for_2D_graph_B.dir/build.make src/CMakeFiles/batch_optimization_for_2D_graph_B.dir/batch_optimization_for_2D_graph_B.cc.s
+.PHONY : batch_optimization_for_2D_graph_B.cc.s
+
 data_parse.o: data_parse.cc.o
 
 .PHONY : data_parse.o
@@ -147,6 +204,8 @@ data_parse.o: data_parse.cc.o
 # target to build an object file
 data_parse.cc.o:
 	cd /home/zhipeng/vscode_projects/UMich-ROB-530-public/homework/mobile_robotics_HW/homework-07/build && $(MAKE) -f src/CMakeFiles/main.dir/build.make src/CMakeFiles/main.dir/data_parse.cc.o
+	cd /home/zhipeng/vscode_projects/UMich-ROB-530-public/homework/mobile_robotics_HW/homework-07/build && $(MAKE) -f src/CMakeFiles/incremental_optimization_for_2D_graph_C.dir/build.make src/CMakeFiles/incremental_optimization_for_2D_graph_C.dir/data_parse.cc.o
+	cd /home/zhipeng/vscode_projects/UMich-ROB-530-public/homework/mobile_robotics_HW/homework-07/build && $(MAKE) -f src/CMakeFiles/batch_optimization_for_2D_graph_B.dir/build.make src/CMakeFiles/batch_optimization_for_2D_graph_B.dir/data_parse.cc.o
 	cd /home/zhipeng/vscode_projects/UMich-ROB-530-public/homework/mobile_robotics_HW/homework-07/build && $(MAKE) -f src/CMakeFiles/read_input_intel_g2o.dir/build.make src/CMakeFiles/read_input_intel_g2o.dir/data_parse.cc.o
 .PHONY : data_parse.cc.o
 
@@ -157,6 +216,8 @@ data_parse.i: data_parse.cc.i
 # target to preprocess a source file
 data_parse.cc.i:
 	cd /home/zhipeng/vscode_projects/UMich-ROB-530-public/homework/mobile_robotics_HW/homework-07/build && $(MAKE) -f src/CMakeFiles/main.dir/build.make src/CMakeFiles/main.dir/data_parse.cc.i
+	cd /home/zhipeng/vscode_projects/UMich-ROB-530-public/homework/mobile_robotics_HW/homework-07/build && $(MAKE) -f src/CMakeFiles/incremental_optimization_for_2D_graph_C.dir/build.make src/CMakeFiles/incremental_optimization_for_2D_graph_C.dir/data_parse.cc.i
+	cd /home/zhipeng/vscode_projects/UMich-ROB-530-public/homework/mobile_robotics_HW/homework-07/build && $(MAKE) -f src/CMakeFiles/batch_optimization_for_2D_graph_B.dir/build.make src/CMakeFiles/batch_optimization_for_2D_graph_B.dir/data_parse.cc.i
 	cd /home/zhipeng/vscode_projects/UMich-ROB-530-public/homework/mobile_robotics_HW/homework-07/build && $(MAKE) -f src/CMakeFiles/read_input_intel_g2o.dir/build.make src/CMakeFiles/read_input_intel_g2o.dir/data_parse.cc.i
 .PHONY : data_parse.cc.i
 
@@ -167,6 +228,8 @@ data_parse.s: data_parse.cc.s
 # target to generate assembly for a file
 data_parse.cc.s:
 	cd /home/zhipeng/vscode_projects/UMich-ROB-530-public/homework/mobile_robotics_HW/homework-07/build && $(MAKE) -f src/CMakeFiles/main.dir/build.make src/CMakeFiles/main.dir/data_parse.cc.s
+	cd /home/zhipeng/vscode_projects/UMich-ROB-530-public/homework/mobile_robotics_HW/homework-07/build && $(MAKE) -f src/CMakeFiles/incremental_optimization_for_2D_graph_C.dir/build.make src/CMakeFiles/incremental_optimization_for_2D_graph_C.dir/data_parse.cc.s
+	cd /home/zhipeng/vscode_projects/UMich-ROB-530-public/homework/mobile_robotics_HW/homework-07/build && $(MAKE) -f src/CMakeFiles/batch_optimization_for_2D_graph_B.dir/build.make src/CMakeFiles/batch_optimization_for_2D_graph_B.dir/data_parse.cc.s
 	cd /home/zhipeng/vscode_projects/UMich-ROB-530-public/homework/mobile_robotics_HW/homework-07/build && $(MAKE) -f src/CMakeFiles/read_input_intel_g2o.dir/build.make src/CMakeFiles/read_input_intel_g2o.dir/data_parse.cc.s
 .PHONY : data_parse.cc.s
 
@@ -177,6 +240,8 @@ edge.o: edge.cc.o
 # target to build an object file
 edge.cc.o:
 	cd /home/zhipeng/vscode_projects/UMich-ROB-530-public/homework/mobile_robotics_HW/homework-07/build && $(MAKE) -f src/CMakeFiles/main.dir/build.make src/CMakeFiles/main.dir/edge.cc.o
+	cd /home/zhipeng/vscode_projects/UMich-ROB-530-public/homework/mobile_robotics_HW/homework-07/build && $(MAKE) -f src/CMakeFiles/incremental_optimization_for_2D_graph_C.dir/build.make src/CMakeFiles/incremental_optimization_for_2D_graph_C.dir/edge.cc.o
+	cd /home/zhipeng/vscode_projects/UMich-ROB-530-public/homework/mobile_robotics_HW/homework-07/build && $(MAKE) -f src/CMakeFiles/batch_optimization_for_2D_graph_B.dir/build.make src/CMakeFiles/batch_optimization_for_2D_graph_B.dir/edge.cc.o
 	cd /home/zhipeng/vscode_projects/UMich-ROB-530-public/homework/mobile_robotics_HW/homework-07/build && $(MAKE) -f src/CMakeFiles/read_input_intel_g2o.dir/build.make src/CMakeFiles/read_input_intel_g2o.dir/edge.cc.o
 .PHONY : edge.cc.o
 
@@ -187,6 +252,8 @@ edge.i: edge.cc.i
 # target to preprocess a source file
 edge.cc.i:
 	cd /home/zhipeng/vscode_projects/UMich-ROB-530-public/homework/mobile_robotics_HW/homework-07/build && $(MAKE) -f src/CMakeFiles/main.dir/build.make src/CMakeFiles/main.dir/edge.cc.i
+	cd /home/zhipeng/vscode_projects/UMich-ROB-530-public/homework/mobile_robotics_HW/homework-07/build && $(MAKE) -f src/CMakeFiles/incremental_optimization_for_2D_graph_C.dir/build.make src/CMakeFiles/incremental_optimization_for_2D_graph_C.dir/edge.cc.i
+	cd /home/zhipeng/vscode_projects/UMich-ROB-530-public/homework/mobile_robotics_HW/homework-07/build && $(MAKE) -f src/CMakeFiles/batch_optimization_for_2D_graph_B.dir/build.make src/CMakeFiles/batch_optimization_for_2D_graph_B.dir/edge.cc.i
 	cd /home/zhipeng/vscode_projects/UMich-ROB-530-public/homework/mobile_robotics_HW/homework-07/build && $(MAKE) -f src/CMakeFiles/read_input_intel_g2o.dir/build.make src/CMakeFiles/read_input_intel_g2o.dir/edge.cc.i
 .PHONY : edge.cc.i
 
@@ -197,8 +264,37 @@ edge.s: edge.cc.s
 # target to generate assembly for a file
 edge.cc.s:
 	cd /home/zhipeng/vscode_projects/UMich-ROB-530-public/homework/mobile_robotics_HW/homework-07/build && $(MAKE) -f src/CMakeFiles/main.dir/build.make src/CMakeFiles/main.dir/edge.cc.s
+	cd /home/zhipeng/vscode_projects/UMich-ROB-530-public/homework/mobile_robotics_HW/homework-07/build && $(MAKE) -f src/CMakeFiles/incremental_optimization_for_2D_graph_C.dir/build.make src/CMakeFiles/incremental_optimization_for_2D_graph_C.dir/edge.cc.s
+	cd /home/zhipeng/vscode_projects/UMich-ROB-530-public/homework/mobile_robotics_HW/homework-07/build && $(MAKE) -f src/CMakeFiles/batch_optimization_for_2D_graph_B.dir/build.make src/CMakeFiles/batch_optimization_for_2D_graph_B.dir/edge.cc.s
 	cd /home/zhipeng/vscode_projects/UMich-ROB-530-public/homework/mobile_robotics_HW/homework-07/build && $(MAKE) -f src/CMakeFiles/read_input_intel_g2o.dir/build.make src/CMakeFiles/read_input_intel_g2o.dir/edge.cc.s
 .PHONY : edge.cc.s
+
+incremental_optimization_for_2D_graph_C.o: incremental_optimization_for_2D_graph_C.cc.o
+
+.PHONY : incremental_optimization_for_2D_graph_C.o
+
+# target to build an object file
+incremental_optimization_for_2D_graph_C.cc.o:
+	cd /home/zhipeng/vscode_projects/UMich-ROB-530-public/homework/mobile_robotics_HW/homework-07/build && $(MAKE) -f src/CMakeFiles/incremental_optimization_for_2D_graph_C.dir/build.make src/CMakeFiles/incremental_optimization_for_2D_graph_C.dir/incremental_optimization_for_2D_graph_C.cc.o
+.PHONY : incremental_optimization_for_2D_graph_C.cc.o
+
+incremental_optimization_for_2D_graph_C.i: incremental_optimization_for_2D_graph_C.cc.i
+
+.PHONY : incremental_optimization_for_2D_graph_C.i
+
+# target to preprocess a source file
+incremental_optimization_for_2D_graph_C.cc.i:
+	cd /home/zhipeng/vscode_projects/UMich-ROB-530-public/homework/mobile_robotics_HW/homework-07/build && $(MAKE) -f src/CMakeFiles/incremental_optimization_for_2D_graph_C.dir/build.make src/CMakeFiles/incremental_optimization_for_2D_graph_C.dir/incremental_optimization_for_2D_graph_C.cc.i
+.PHONY : incremental_optimization_for_2D_graph_C.cc.i
+
+incremental_optimization_for_2D_graph_C.s: incremental_optimization_for_2D_graph_C.cc.s
+
+.PHONY : incremental_optimization_for_2D_graph_C.s
+
+# target to generate assembly for a file
+incremental_optimization_for_2D_graph_C.cc.s:
+	cd /home/zhipeng/vscode_projects/UMich-ROB-530-public/homework/mobile_robotics_HW/homework-07/build && $(MAKE) -f src/CMakeFiles/incremental_optimization_for_2D_graph_C.dir/build.make src/CMakeFiles/incremental_optimization_for_2D_graph_C.dir/incremental_optimization_for_2D_graph_C.cc.s
+.PHONY : incremental_optimization_for_2D_graph_C.cc.s
 
 main.o: main.cc.o
 
@@ -261,6 +357,8 @@ utilities.o: utilities.cc.o
 # target to build an object file
 utilities.cc.o:
 	cd /home/zhipeng/vscode_projects/UMich-ROB-530-public/homework/mobile_robotics_HW/homework-07/build && $(MAKE) -f src/CMakeFiles/main.dir/build.make src/CMakeFiles/main.dir/utilities.cc.o
+	cd /home/zhipeng/vscode_projects/UMich-ROB-530-public/homework/mobile_robotics_HW/homework-07/build && $(MAKE) -f src/CMakeFiles/incremental_optimization_for_2D_graph_C.dir/build.make src/CMakeFiles/incremental_optimization_for_2D_graph_C.dir/utilities.cc.o
+	cd /home/zhipeng/vscode_projects/UMich-ROB-530-public/homework/mobile_robotics_HW/homework-07/build && $(MAKE) -f src/CMakeFiles/batch_optimization_for_2D_graph_B.dir/build.make src/CMakeFiles/batch_optimization_for_2D_graph_B.dir/utilities.cc.o
 .PHONY : utilities.cc.o
 
 utilities.i: utilities.cc.i
@@ -270,6 +368,8 @@ utilities.i: utilities.cc.i
 # target to preprocess a source file
 utilities.cc.i:
 	cd /home/zhipeng/vscode_projects/UMich-ROB-530-public/homework/mobile_robotics_HW/homework-07/build && $(MAKE) -f src/CMakeFiles/main.dir/build.make src/CMakeFiles/main.dir/utilities.cc.i
+	cd /home/zhipeng/vscode_projects/UMich-ROB-530-public/homework/mobile_robotics_HW/homework-07/build && $(MAKE) -f src/CMakeFiles/incremental_optimization_for_2D_graph_C.dir/build.make src/CMakeFiles/incremental_optimization_for_2D_graph_C.dir/utilities.cc.i
+	cd /home/zhipeng/vscode_projects/UMich-ROB-530-public/homework/mobile_robotics_HW/homework-07/build && $(MAKE) -f src/CMakeFiles/batch_optimization_for_2D_graph_B.dir/build.make src/CMakeFiles/batch_optimization_for_2D_graph_B.dir/utilities.cc.i
 .PHONY : utilities.cc.i
 
 utilities.s: utilities.cc.s
@@ -279,6 +379,8 @@ utilities.s: utilities.cc.s
 # target to generate assembly for a file
 utilities.cc.s:
 	cd /home/zhipeng/vscode_projects/UMich-ROB-530-public/homework/mobile_robotics_HW/homework-07/build && $(MAKE) -f src/CMakeFiles/main.dir/build.make src/CMakeFiles/main.dir/utilities.cc.s
+	cd /home/zhipeng/vscode_projects/UMich-ROB-530-public/homework/mobile_robotics_HW/homework-07/build && $(MAKE) -f src/CMakeFiles/incremental_optimization_for_2D_graph_C.dir/build.make src/CMakeFiles/incremental_optimization_for_2D_graph_C.dir/utilities.cc.s
+	cd /home/zhipeng/vscode_projects/UMich-ROB-530-public/homework/mobile_robotics_HW/homework-07/build && $(MAKE) -f src/CMakeFiles/batch_optimization_for_2D_graph_B.dir/build.make src/CMakeFiles/batch_optimization_for_2D_graph_B.dir/utilities.cc.s
 .PHONY : utilities.cc.s
 
 vertex.o: vertex.cc.o
@@ -288,6 +390,8 @@ vertex.o: vertex.cc.o
 # target to build an object file
 vertex.cc.o:
 	cd /home/zhipeng/vscode_projects/UMich-ROB-530-public/homework/mobile_robotics_HW/homework-07/build && $(MAKE) -f src/CMakeFiles/main.dir/build.make src/CMakeFiles/main.dir/vertex.cc.o
+	cd /home/zhipeng/vscode_projects/UMich-ROB-530-public/homework/mobile_robotics_HW/homework-07/build && $(MAKE) -f src/CMakeFiles/incremental_optimization_for_2D_graph_C.dir/build.make src/CMakeFiles/incremental_optimization_for_2D_graph_C.dir/vertex.cc.o
+	cd /home/zhipeng/vscode_projects/UMich-ROB-530-public/homework/mobile_robotics_HW/homework-07/build && $(MAKE) -f src/CMakeFiles/batch_optimization_for_2D_graph_B.dir/build.make src/CMakeFiles/batch_optimization_for_2D_graph_B.dir/vertex.cc.o
 	cd /home/zhipeng/vscode_projects/UMich-ROB-530-public/homework/mobile_robotics_HW/homework-07/build && $(MAKE) -f src/CMakeFiles/read_input_intel_g2o.dir/build.make src/CMakeFiles/read_input_intel_g2o.dir/vertex.cc.o
 .PHONY : vertex.cc.o
 
@@ -298,6 +402,8 @@ vertex.i: vertex.cc.i
 # target to preprocess a source file
 vertex.cc.i:
 	cd /home/zhipeng/vscode_projects/UMich-ROB-530-public/homework/mobile_robotics_HW/homework-07/build && $(MAKE) -f src/CMakeFiles/main.dir/build.make src/CMakeFiles/main.dir/vertex.cc.i
+	cd /home/zhipeng/vscode_projects/UMich-ROB-530-public/homework/mobile_robotics_HW/homework-07/build && $(MAKE) -f src/CMakeFiles/incremental_optimization_for_2D_graph_C.dir/build.make src/CMakeFiles/incremental_optimization_for_2D_graph_C.dir/vertex.cc.i
+	cd /home/zhipeng/vscode_projects/UMich-ROB-530-public/homework/mobile_robotics_HW/homework-07/build && $(MAKE) -f src/CMakeFiles/batch_optimization_for_2D_graph_B.dir/build.make src/CMakeFiles/batch_optimization_for_2D_graph_B.dir/vertex.cc.i
 	cd /home/zhipeng/vscode_projects/UMich-ROB-530-public/homework/mobile_robotics_HW/homework-07/build && $(MAKE) -f src/CMakeFiles/read_input_intel_g2o.dir/build.make src/CMakeFiles/read_input_intel_g2o.dir/vertex.cc.i
 .PHONY : vertex.cc.i
 
@@ -308,6 +414,8 @@ vertex.s: vertex.cc.s
 # target to generate assembly for a file
 vertex.cc.s:
 	cd /home/zhipeng/vscode_projects/UMich-ROB-530-public/homework/mobile_robotics_HW/homework-07/build && $(MAKE) -f src/CMakeFiles/main.dir/build.make src/CMakeFiles/main.dir/vertex.cc.s
+	cd /home/zhipeng/vscode_projects/UMich-ROB-530-public/homework/mobile_robotics_HW/homework-07/build && $(MAKE) -f src/CMakeFiles/incremental_optimization_for_2D_graph_C.dir/build.make src/CMakeFiles/incremental_optimization_for_2D_graph_C.dir/vertex.cc.s
+	cd /home/zhipeng/vscode_projects/UMich-ROB-530-public/homework/mobile_robotics_HW/homework-07/build && $(MAKE) -f src/CMakeFiles/batch_optimization_for_2D_graph_B.dir/build.make src/CMakeFiles/batch_optimization_for_2D_graph_B.dir/vertex.cc.s
 	cd /home/zhipeng/vscode_projects/UMich-ROB-530-public/homework/mobile_robotics_HW/homework-07/build && $(MAKE) -f src/CMakeFiles/read_input_intel_g2o.dir/build.make src/CMakeFiles/read_input_intel_g2o.dir/vertex.cc.s
 .PHONY : vertex.cc.s
 
@@ -318,15 +426,23 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... rebuild_cache"
-	@echo "... edit_cache"
 	@echo "... main"
+	@echo "... edit_cache"
+	@echo "... incremental_optimization_for_2D_graph_C"
+	@echo "... batch_optimization_for_2D_graph_B"
 	@echo "... read_input_intel_g2o"
+	@echo "... batch_optimization_for_2D_graph_B.o"
+	@echo "... batch_optimization_for_2D_graph_B.i"
+	@echo "... batch_optimization_for_2D_graph_B.s"
 	@echo "... data_parse.o"
 	@echo "... data_parse.i"
 	@echo "... data_parse.s"
 	@echo "... edge.o"
 	@echo "... edge.i"
 	@echo "... edge.s"
+	@echo "... incremental_optimization_for_2D_graph_C.o"
+	@echo "... incremental_optimization_for_2D_graph_C.i"
+	@echo "... incremental_optimization_for_2D_graph_C.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"

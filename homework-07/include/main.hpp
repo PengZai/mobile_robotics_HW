@@ -6,6 +6,7 @@
 #include "edge.hpp"
 #include "data_parse.hpp"
 #include "utilities.hpp"
+#include <random>
 #include <eigen3/Eigen/Dense>
 #include <gtsam/geometry/Pose2.h>
 #include <gtsam/inference/Symbol.h>

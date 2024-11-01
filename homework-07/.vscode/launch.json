@@ -9,7 +9,12 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/bin/main",
-            "args": [],
+            "args": [
+                "datasets/input_INTEL_g2o.g2o",
+                "datasets/after_optimization_input_INTEL_g2o.g2o",
+                "5",
+                "0.5"
+            ],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],

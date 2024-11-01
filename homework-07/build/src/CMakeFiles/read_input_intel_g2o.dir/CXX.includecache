@@ -34,10 +34,6 @@ data_parse.hpp
 bits/stdc++.h
 -
 
-/home/zhipeng/vscode_projects/UMich-ROB-530-public/homework/mobile_robotics_HW/homework-07/src/data_parse.cc
-data_parse.hpp
-/home/zhipeng/vscode_projects/UMich-ROB-530-public/homework/mobile_robotics_HW/homework-07/src/data_parse.hpp
-
 /home/zhipeng/vscode_projects/UMich-ROB-530-public/homework/mobile_robotics_HW/homework-07/src/read_input_intel_g2o.cc
 read_input_intel_g2o.hpp
 /home/zhipeng/vscode_projects/UMich-ROB-530-public/homework/mobile_robotics_HW/homework-07/src/read_input_intel_g2o.hpp

@@ -782,6 +782,8 @@ src/CMakeFiles/main.dir/main.cc.o: /home/zhipeng/vscode_projects/gtsam/gtsam/lin
 src/CMakeFiles/main.dir/main.cc.o: /home/zhipeng/vscode_projects/gtsam/gtsam/linear/linearExceptions.h
 src/CMakeFiles/main.dir/main.cc.o: /home/zhipeng/vscode_projects/gtsam/gtsam/nonlinear/GaussNewtonOptimizer.h
 src/CMakeFiles/main.dir/main.cc.o: /home/zhipeng/vscode_projects/gtsam/gtsam/nonlinear/GraphvizFormatting.h
+src/CMakeFiles/main.dir/main.cc.o: /home/zhipeng/vscode_projects/gtsam/gtsam/nonlinear/LevenbergMarquardtOptimizer.h
+src/CMakeFiles/main.dir/main.cc.o: /home/zhipeng/vscode_projects/gtsam/gtsam/nonlinear/LevenbergMarquardtParams.h
 src/CMakeFiles/main.dir/main.cc.o: /home/zhipeng/vscode_projects/gtsam/gtsam/nonlinear/Marginals.h
 src/CMakeFiles/main.dir/main.cc.o: /home/zhipeng/vscode_projects/gtsam/gtsam/nonlinear/NonlinearFactor.h
 src/CMakeFiles/main.dir/main.cc.o: /home/zhipeng/vscode_projects/gtsam/gtsam/nonlinear/NonlinearFactorGraph.h

@@ -1,12 +1,22 @@
 #include "main.hpp"
 
 
-int main(){
+int main(const int argc, const char *argv[]){
 
     std::vector<Vertex> vertices;
     std::vector<Edge> edges;
 
     std::string input_INTEL_g2o = "datasets/input_INTEL_g2o.g2o";
+    std::string outputFile = "datasets/after_optimization_input_INTEL_g2o.g2o";
+
+    if (argc > 1){
+        input_INTEL_g2o = argv[1];
+    }
+    if (argc > 2){
+        outputFile = argv[2];
+    }
+    
+
     std::tie(vertices, edges) = parseInput_INTEL_g2o(input_INTEL_g2o);
 
     // for(Vertex &v: vertices){
@@ -18,6 +28,17 @@ int main(){
 
     //Create an empty nonlinear factor graph
     gtsam::NonlinearFactorGraph graph;
+
+    // initial estimate
+    gtsam::Values initialEstimate;
+    for(Vertex &v: vertices){
+        
+        int id;
+        double x, y, theta;
+        std::tie(id, x, y, theta) = v.getPosition();
+        initialEstimate.insert(id, gtsam::Pose2(x, y, theta));
+    }
+    initialEstimate.print("\nInitial Estimate:\n"); // print
 
     // construct a prior
     gtsam::noiseModel::Diagonal::shared_ptr priorNoise = gtsam::noiseModel::Diagonal::Sigmas(Eigen::Vector3d(0.1, 0.1, 0.1));
@@ -36,16 +57,7 @@ int main(){
     }
 
 
-    // initial estimate
-    gtsam::Values initialEstimate;
-    for(Vertex &v: vertices){
-        
-        int id;
-        double x, y, theta;
-        std::tie(id, x, y, theta) = v.getPosition();
-        initialEstimate.insert(id, gtsam::Pose2(x, y, theta));
-    }
-    initialEstimate.print("\nInitial Estimate:\n"); // print
+    
     
 
     // 4. Optimize the initial values using a Gauss-Newton nonlinear optimizer
@@ -53,16 +65,20 @@ int main(){
     // controlling things like convergence criteria, the type of linear
     // system solver to use, and the amount of information displayed during
     // optimization. We will set a few parameters as a demonstration.
-    gtsam::GaussNewtonParams parameters;
+    // gtsam::GaussNewtonParams parameters;
+    gtsam::LevenbergMarquardtParams parameters;
     // Stop iterating once the change in error between steps is less than this value
     parameters.relativeErrorTol = 1e-5;
     // Do not perform more than N iteration steps
     parameters.maxIterations = 100;
     // Create the optimizer ...
-    gtsam::GaussNewtonOptimizer optimizer(graph, initialEstimate, parameters);
+    gtsam::LevenbergMarquardtOptimizer optimizer(graph, initialEstimate, parameters);
     // ... and optimize
     gtsam::Values result = optimizer.optimize();
     result.print("Finished:\n");
+    // for(Vertex &v: vertices){
+    //     v.print();
+    // }
 
     double init_error = graph.error(initialEstimate);
     double result_error = graph.error(result);
@@ -70,9 +86,9 @@ int main(){
     std::cout << "Total graph error after optimization: " << result_error << std::endl;
 
     // save as g2o
-    const std::string outputFile = "/mnt/c/ShareNetwork/datasets/after_optimization.g2o";
     gtsam::writeG2o(graph, result, outputFile);
 
+    
 
     return 0;
 
